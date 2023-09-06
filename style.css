@@ -1,0 +1,204 @@
+:root {
+    --white: #ffffff;
+    --black: #000000;
+    --purple: #BC13FE;
+    --gold: #ffd700;
+}
+body {
+    font-family: 'Quicksand', sans-serif;
+    color: var(--white);
+    background-color: var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+h1 {
+    text-align: center;
+    font-size: 45px;
+    text-transform: uppercase;
+}
+.container h1 {
+    text-shadow: 
+    0 0 2px var(--white),
+    0 0 5px var(--white),
+    0 0 10px var(--purple),
+    0 0 20px var(--purple),
+    0 0 30px var(--purple);
+}
+#game-selection h1 {
+    animation: glow 1s ease-in-out infinite alternate;
+}
+@keyframes glow {
+    from {
+        text-shadow: 
+        0 0 2px var(--white),
+        0 0 5px var(--white),
+        0 0 10px var(--purple),
+        0 0 20px var(--purple),
+        0 0 30px var(--purple);    
+    }
+    to {
+        text-shadow: 
+        0 0 5px var(--white),
+        0 0 10px var(--white),
+        0 0 20px var(--purple),
+        0 0 30px var(--purple),
+        0 0 40px var(--purple);
+    }
+}
+#status {
+    font-size: 24px;
+    text-transform: uppercase;
+}
+#status span {
+    text-transform: none;
+}
+.container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 16px;
+}
+#board {
+    height: 300px;
+    width: 300px;
+    background-color: var(--black);
+    display: flex;
+    flex-wrap: wrap;
+}
+.cell {
+    height: 100px;
+    width: 100px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+[id='1'], [id='4'] {
+    border: solid var(--white);
+    border-width: 0 2px 2px 2px;
+}
+[id='7'] {
+    border: solid var(--white);
+    border-width: 0 2px 0 2px;
+}
+[id='0'], [id='2'], [id='3'], [id='5'] {
+    border: solid var(--white);
+    border-width: 0 0 2px 0;
+}
+.player {
+    margin: 0;
+    font-size: 75px;
+    vertical-align: middle;
+    font-weight: 700;
+    text-shadow: 
+    0 0 5px var(--white),
+    0 0 10px var(--white),
+    0 0 15px var(--gold),
+    0 0 20px var(--gold);
+    animation: grow .5s;
+}
+@keyframes grow {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+.win {
+    animation: win 2s linear;
+}
+@keyframes win {
+    0%, 30%, 60%, 90%, 100%{
+        text-shadow: 
+        0 0 5px var(--white),
+        0 0 10px var(--white),
+        0 0 15px var(--gold),
+        0 0 20px var(--gold);
+    }
+    15%, 45%, 75% {
+        text-shadow: 
+        0 0 10px var(--white),
+        0 0 20px var(--white),
+        0 0 30px var(--gold),
+        0 0 30px var(--gold);
+    }
+}
+#game-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 16px;
+    animation: fade 0.8s ease-in;
+}
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+button {
+    width: 120px;
+    padding:10px;
+    margin: 12px;
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+    border-radius: 8px;
+    border: transparent;
+    box-shadow: 0 0 2px var(--white), 0 0 5px var(--gold), 0 0 10px var(--gold), 0 0 12px var(--gold);
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
+    transition: all 0.8s;
+}
+button:hover {
+    animation: hover 0.4s infinite alternate;
+}
+@keyframes hover {
+    from{
+        box-shadow: 
+        0 0 2px var(--white),
+        0 0 5px var(--gold),
+        0 0 10px var(--gold),
+        0 0 12px var(--gold);
+    }
+    to {
+        box-shadow: 
+        0 0 5px var(--white),
+        0 0 10px var(--gold),
+        0 0 15px var(--gold),
+        0 0 20px var(--gold);
+    }
+}
+#restart {
+    margin-top: 24px;
+    font-size: 12px;
+    box-shadow: 0 0 2px var(--white), 0 0 5px var(--white), 0 0 10px var(--white), 0 0 12px var(--white);
+}
+#restart:hover {
+    animation: restarthover 0.4s infinite alternate;
+}
+@keyframes restarthover {
+    from{
+        box-shadow: 
+        0 0 2px var(--white),
+        0 0 5px var(--white),
+        0 0 10px var(--white),
+        0 0 12px var(--white);
+    }
+    to {
+        box-shadow: 
+        0 0 5px var(--white),
+        0 0 10px var(--white),
+        0 0 15px var(--white),
+        0 0 20px var(--white);
+    }
+}
