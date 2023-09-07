@@ -101,7 +101,6 @@ h1 {
     font-weight: 700;
     text-shadow: 
     0 0 2px var(--white),
-    0 0 5px var(--white),
     0 0 10px var(--gold),
     0 0 20px var(--gold);
     animation: grow .5s;
@@ -121,14 +120,12 @@ h1 {
     0%, 30%, 60%, 90%{
         text-shadow: 
         0 0 2px var(--white),
-        0 0 5px var(--white),
         0 0 10px var(--gold),
         0 0 20px var(--gold);
     }
     15%, 45%, 75% {
         text-shadow: 
         0 0 5px var(--white),
-        0 0 10px var(--white),
         0 0 20px var(--gold),
         0 0 30px var(--gold);
     }

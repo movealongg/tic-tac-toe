@@ -98,18 +98,77 @@ function takeATurn(e) {
                 cell.removeEventListener('click', takeATurn)
             }
         });
-            
+        
+        // For each X and O move, push its id to their respective play arrays
+        let xPlays = [];
+        let oPlays = [];
+        blankCells.forEach((cell, i) => cell === 'X' ? xPlays.push(i) : cell === 'O' ? oPlays.push(i) : '');
+
+        /*
+            Figure out potential win sitations. If the board matches 2/3 indexes in a solution,
+            have the computer's next move be that third slot to block player 1 from winning or to win the game.
+            If there's more than one potential win situation, find the first situation that has a blank
+            spot on the board.
+        */
+        let xPotentialWin;
+        let oPotentialWin;
+
+        let xPotentialWins = solutions.filter(
+            solution => {
+                let count = 0;
+                xPlays.forEach(x => solution.includes(x) ? count++ : count + 0)
+                if (count > 1) {
+                    return solution;
+                }
+            }
+        );
+        for (const cell of emptyCells) {
+            let openSpot = xPotentialWins.find(win => win.includes(Number(cell)));
+            if (openSpot) {
+                xPotentialWin = openSpot;
+                break;
+            }
+        }
+
+        let oPotentialWins = solutions.filter(
+            solution => {
+                let count = 0;
+                oPlays.forEach(o => solution.includes(o) ? count++ : count + 0)
+                if (count > 1) {
+                    return solution;
+                }
+            }
+        );
+        for (const cell of emptyCells) {
+            let openSpot = oPotentialWins.find(win => win.includes(Number(cell)));
+            if (openSpot) {
+                oPotentialWin = openSpot;
+                break;
+            }
+        }
+  
+        let randomCellId;
+
         setTimeout(() => {
-            // Generate random cell index for cpu turn 
-            let cpuTurn = Math.floor(Math.random() * emptyCells.length);
+            // If there's a potential spot for O to win, make that move
+            if (oPotentialWin !== undefined) {
+                randomCellId = oPotentialWin.filter(o => !oPlays.includes(o));
+            // If there's a potential spot for X to win, block that move
+            } else if (xPotentialWin !== undefined) {
+                randomCellId = xPotentialWin.filter(x => !xPlays.includes(x));
+            // If all else fails, pick a random spot
+            } else {
+                // Generate random cell index for cpu turn 
+                let cpuTurn = Math.floor(Math.random() * emptyCells.length);
 
-            // Select a random blank cell 
-            let randomCellId = emptyCells[cpuTurn];
-
+                // Select a random blank cell 
+                randomCellId = emptyCells[cpuTurn];
+            }
+ 
             /* 
-            If there's no winner yet and the random cell index you generated is blank on the board,
-            add the cpu/player2 to the cell, change the status, update the board,
-            remove click event and cursor 
+                If there's no winner yet and the random cell index you generated is blank on the board,
+                add the cpu/player2 to the cell, change the status, update the board,
+                remove click event and cursor 
             */
             if (blankCells[randomCellId] === '' && !winner) {
                 // Create and add player piece to board after cpu takes a turn
@@ -123,7 +182,7 @@ function takeATurn(e) {
                 cells[randomCellId].removeEventListener('click', takeATurn);
                 cells[randomCellId].style.cursor = 'default';
             } 
-
+      
             // Update current player and status after each turn
             currentPlayer = player1;
             gameStatus.innerHTML = `${currentPlayer}'<span>s</span> turn`;
